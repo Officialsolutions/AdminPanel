@@ -63,40 +63,60 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                     var excelFile = new ExcelQueryFactory(pathToExcelFile);
                     var artistAlbums = from a in excelFile.Worksheet<StudentReg>(sheetName) select a;
 
-                    foreach (var a in artistAlbums)
+                    foreach (DataRow a in dtable.Rows)
                     {
                         try
                         {
-                            if (a.StudentName != "" && a.Address != "" && a.Contact != "")
+                            if (a["Student Name"] != "" && a["Address"] != "" && a["Contact"] != "")
                             {
                                 string rollno = null;
                                 StudentReg TU = new StudentReg();
-                                // string reg = Regno(a.RollNo);
+                               StudentReg studentreg1 = db.StudentRegs.FirstOrDefault();
+                                if (studentreg1 == null)
+                                {
+                                    TU.RollNo = 0001;
+                                }
+                                else
+                                {
+                                    var ab = db.StudentRegs.Max(x => x.RollNo);
+                                    TU.RollNo =Convert.ToInt32(ab) + 1;
+
+                                }
                                 //TU.RollNo = Regno(rollno);
-                                TU.RollNo = a.RollNo;
-                                TU.StudentName = a.StudentName;
-                                TU.FatherName = a.FatherName;
-                                TU.Address = a.Address;
-                                TU.Contact = a.Contact;
-                                TU.Laststudy = a.Laststudy;
-                                TU.Medical = a.Medical;
-                                TU.Refusal = a.Refusal;
-                                TU.Email = a.Email;
-                                TU.Password = a.Password;
+                                //TU.RollNo = a.RollNo;
+                                TU.StudentName = a["Student Name"].ToString();
+                                TU.FatherName = a["Father Name"].ToString();
+                                TU.Address = a["Address"].ToString();
+                                TU.Contact = a["Contact"].ToString();
+                                TU.Laststudy = a["Last study"].ToString();
+                                TU.Medical = a["Medical Done"].ToString();
+                                TU.Refusal = a["Refusal"].ToString();
+                                TU.Email = a["STUDENT E-MAIL ID"].ToString();
+                                TU.Password = a["Password"].ToString();
+                                TU.Fileno = "Jan/19";
                                 db.StudentRegs.Add(TU);
 
                                 db.SaveChanges();
+
+                                fees fee = new fees();
+                                fee.studentid = TU.Fileno + "" + TU.RollNo;
+                                fee.Package = Convert.ToInt32(a["Package"]);
+                                fee.Advance = Convert.ToInt32(a["Advance"]);
+                                fee.pay = Convert.ToInt32(a["Advance"]);
+                                db.fees.Add(fee);
+                                db.SaveChanges();
+
                                 //    a.RollNo, a.StudentName, a.FatherName, a.Address, a.Contact, a.Laststudy, a.Medical, a.Refusal, a.Email, a.Password
 
 
                             }
                             else
                             {
-                                data.Add("<ul>");
-                                if (a.StudentName == "" || a.StudentName == null) data.Add("<li> name is required</li>");
-                                if (a.FatherName == "" || a.FatherName == null) data.Add("<li> Father Name is required</li>");
-                                if (a.Address == "" || a.Address == null) data.Add("<li> Address is required</li>");
-                                if (a.Contact == "" || a.Contact == null) data.Add("<li>ContactNo is required</li>");
+                                //data.Add("<ul>");
+                                //if (a.StudentName == "" || a.StudentName == null) data.Add("<li> name is required</li>");
+                                //if (a.FatherName == "" || a.FatherName == null) data.Add("<li> Father Name is required</li>");
+                                //if (a.Address == "" || a.Address == null) data.Add("<li> Address is required</li>");
+                                //if (a.Contact == "" || a.Contact == null) data.Add("<li>ContactNo is required</li>");
 
                                 data.Add("</ul>");
                                 data.ToArray();
@@ -145,134 +165,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-        //private string Regno(string rollno)
-        //{
-        //    //dbcontext db = new dbcontext();
-        //    StudentReg stu = new StudentReg();
-        //    stu = db.StudentRegs.Where(x => x.Studentid == stu.Studentid).Max();
-        //    string rol = stu.RollNo;
-        //    //if (roln != null)
-        //    //{
-        //    //    var rol = roln.RollNo;
-        //        if (rol != null)
-        //        {
-        //        //  string[] roll = rol.Split('-');
-
-        //        //rollno = (Convert.ToInt32(roll[1]) + Convert.ToInt32(1)).ToString();
-        //        rollno = "Jan19-001";
-        //    }
-        //        else
-        //        {
-        //            rollno = "Jan19-001";
-        //        }
-        //    //}
-        //    return rollno;
-        //}
-        //[HttpPost]
-        //public ActionResult updateExcel(StudentReg student, HttpPostedFileBase FileUpload)
-        //{
-
-        //    //  EmployeeDBEntities objEntity = new EmployeeDBEntities();
-        //    string data = "";
-        //    if (FileUpload != null)
-        //    {
-        //        if (FileUpload.ContentType == "application/vnd.ms-excel" || FileUpload.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-        //        {
-        //            string filename = FileUpload.FileName;
-
-        //            if (filename.EndsWith(".xlsx"))
-        //            {
-        //                string targetpath = Server.MapPath("~/DetailFormatInExcel/");
-        //                FileUpload.SaveAs(targetpath + filename);
-        //                string pathToExcelFile = targetpath + filename;
-
-        //                string sheetName = "Sheet1";
-
-        //                var excelFile = new ExcelQueryFactory(pathToExcelFile);
-        //                var empDetails = from a in excelFile.Worksheet<StudentReg>(sheetName) select a;
-        //                foreach (var a in empDetails)
-        //                {
-        //                    if (a.RollNo != null)
-        //                    {
-
-        //                        //DateTime? myBirthdate = null;
-
-
-        //                        if (a.Contact.Length > 10)
-        //                        {
-        //                            data = "Phone number should be 10 to 12 disit";
-        //                            ViewBag.Message = data;
-
-        //                        }
-
-        //                        //  myBirthdate = Convert.ToDateTime(a.DateOfBirth);
-
-
-        //                        int resullt = PostExcelData(a.RollNo, a.StudentName, a.FatherName, a.Address, a.Contact, a.Laststudy, a.Medical, a.Refusal, a.Email, a.Password);
-        //                        if (resullt <= 0)
-        //                        {
-        //                            data = "Hello User, Found some duplicate values! Only unique employee number has inserted and duplicate values(s) are not inserted";
-        //                            ViewBag.Message = data;
-        //                            continue;
-
-        //                        }
-        //                        else
-        //                        {
-        //                            data = "Successful upload records";
-        //                            ViewBag.Message = data;
-        //                        }
-        //                    }
-
-        //                    else
-        //                    {
-        //                        data = a.RollNo + "Some fields are null, Please check your excel sheet";
-        //                        ViewBag.Message = data;
-        //                        return View("updateExcel");
-        //                    }
-
-        //                }
-        //            }
-
-        //            else
-        //            {
-        //                data = "This file is not valid format";
-        //                ViewBag.Message = data;
-        //            }
-        //            return View("updateExcel");
-        //        }
-        //        else
-        //        {
-
-        //            data = "Only Excel file format is allowed";
-
-        //            ViewBag.Message = data;
-        //            return View("updateExcel");
-
-        //        }
-
-        //    }
-        //    else
-        //    {
-
-        //        if (FileUpload == null)
-        //        {
-        //            data = "Please choose Excel file";
-        //        }
-
-        //        ViewBag.Message = data;
-        //        return View("ExcelUpload");
-        //    }
-        //}
-
-        //public int PostExcelData(string RollNo, string StudentName, string FatherName, string address, string Contact, string Laststudy, string Medical, string Refusal, string Email, string Password)
-        //{
-        //    dbcontext DbEntity = new dbcontext();
-        //    StudentReg reg = new StudentReg();
-        //    // EmployeeDBEntities DbEntity = new EmployeeDBEntities();
-        //    var InsertExcelData = reg(RollNo, StudentName, FatherName, address, Contact, Laststudy, Medical, Refusal, Email, Password);
-
-        //    return InsertExcelData;
-        //}
+   
         // GET: OfficialAdmin/StudentRegs/Details/5
         public ActionResult Details(int? id)
         {
@@ -291,7 +184,18 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // GET: OfficialAdmin/StudentRegs/Create
         public ActionResult Create()
         {
-            return View();
+            StudentReg studentreg1 = db.StudentRegs.First();
+            if (studentreg1 != null)
+            {
+                studentreg1.RollNo = 0001;
+            }
+            else
+            {
+                var ab = db.StudentRegs.Max(x => x.RollNo);
+                studentreg1.RollNo = Convert.ToInt32(ab) + 1;
+
+            }
+            return View(studentreg1);
         }
 
         // POST: OfficialAdmin/StudentRegs/Create
@@ -305,7 +209,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
             {
                 string rollno = null;
                 //string reg = Regno(rollno);
-                studentReg.RollNo = Help.Regno(rollno);
+               // studentReg.RollNo = Help.Regno(rollno);
                 db.StudentRegs.Add(studentReg);
                 db.SaveChanges();
                 return RedirectToAction("Index");

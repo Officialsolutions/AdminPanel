@@ -318,25 +318,25 @@ namespace onlineportal.Areas.AdminPanel.Models
         }
         public string Regno(string rollno)
         {
-          //  StudentReg stu = new StudentReg();
-            string rol = db.StudentRegs.Max().RollNo;
-         //   string rol = stu.RollNo;
-            //if (roln != null)
-            //{
-            //    var rol = roln.RollNo;
-            if (rol != null)
-            {
-                //  string[] roll = rol.Split('-');
+         // //  StudentReg stu = new StudentReg();
+         //   string rol = db.StudentRegs.Max().RollNo;
+         ////   string rol = stu.RollNo;
+         //   //if (roln != null)
+         //   //{
+         //   //    var rol = roln.RollNo;
+         //   if (rol != null)
+         //   {
+         //       //  string[] roll = rol.Split('-');
 
-                //rollno = (Convert.ToInt32(roll[1]) + Convert.ToInt32(1)).ToString();
-                rollno = "Jan19-001";
-            }
-            else
-            {
-                rollno = "Jan19-001";
-            }
-            //}
-            return rollno;
+         //       //rollno = (Convert.ToInt32(roll[1]) + Convert.ToInt32(1)).ToString();
+         //       rollno = "Jan19-001";
+         //   }
+         //   else
+         //   {
+         //       rollno = "Jan19-001";
+         //   }
+         //   //}
+            return "";
         }
     }
     public enum NotificationEnumeration

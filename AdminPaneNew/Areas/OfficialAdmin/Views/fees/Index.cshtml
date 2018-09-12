@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AdminPaneNew.Areas.OfficialAdmin.Models.fees>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.studentid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Package)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Advance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pay)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Package)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Advance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pay)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.feeid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.feeid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.feeid })
+        </td>
+    </tr>
+}
+
+</table>

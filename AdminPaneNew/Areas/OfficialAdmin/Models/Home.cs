@@ -97,7 +97,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
         public int Clientid { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Image { get; set; }    
+        public string Image { get; set; }
         public DateTime date { get; set; }
 
     }
@@ -225,7 +225,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
     {
         General,
         Academic
-        
+
     }
     public class AssignTest
     {
@@ -257,6 +257,18 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
         [RegularExpression("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$", ErrorMessage = "You must provide a valid email address.")]
         public string Email { get; set; }
         public string Password { get; set; }
-        public string RollNo { get; set; }
+        public int RollNo { get; set; }
+        public string Fileno { get; set; }
+
+    }
+    public class fees
+    {
+        [Key]
+        public int feeid { get; set; }
+        public string studentid { get; set; }
+        public int Package { get; set; }
+        public int Advance { get; set; }
+        public int pay { get; set; }
+
     }
 }

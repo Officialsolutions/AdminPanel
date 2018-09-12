@@ -1,0 +1,51 @@
+﻿@model AdminPaneNew.Areas.OfficialAdmin.Models.fees
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>fees</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.studentid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.studentid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Package)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Package)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Advance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Advance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pay)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.feeid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

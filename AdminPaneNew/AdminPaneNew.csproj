@@ -210,6 +210,7 @@
     <Compile Include="Areas\OfficialAdmin\Controllers\ContactsController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\FeaturesController.cs" />
+    <Compile Include="Areas\OfficialAdmin\Controllers\feesController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\IeltsTestsController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\LogoesController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\newsController.cs" />
@@ -491,6 +492,11 @@
     <Content Include="Areas\OfficialAdmin\Views\StudentRegs\Edit.cshtml" />
     <Content Include="Areas\OfficialAdmin\Views\StudentRegs\Index.cshtml" />
     <Content Include="Areas\OfficialAdmin\Views\StudentRegs\updateExcel.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\fees\Create.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\fees\Delete.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\fees\Details.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\fees\Edit.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\fees\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
