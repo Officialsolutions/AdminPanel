@@ -1,0 +1,36 @@
+﻿@model IEnumerable<AdminPaneNew.Areas.OfficialAdmin.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+}
+
+<h2><b>Index</b></h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+      
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Categoryid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Categoryid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Categoryid })
+        </td>
+    </tr>
+}
+
+</table>

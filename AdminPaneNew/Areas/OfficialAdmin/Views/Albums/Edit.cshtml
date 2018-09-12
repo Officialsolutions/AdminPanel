@@ -1,0 +1,75 @@
+﻿@model AdminPaneNew.Areas.OfficialAdmin.Models.Album
+@using AdminPaneNew.Areas.OfficialAdmin.Models;
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+    dbcontext db = new dbcontext();
+    Gallery gal = new Gallery();
+}
+
+    @section Pagename {
+
+        Album
+}
+
+@using (Html.BeginForm("Edit", "Albums", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3>Edit</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Albumid)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AlbumName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AlbumName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AlbumName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                <input id="file" type="file" title="search image" class="form-control" name="file" />
+                @Html.Label("460px X 290px", htmlAttributes: new { @class = "control-label" })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                <img src="~/UploadedFiles/@Model.Image" alt="" style="width:150px;" class="img-responsive" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Images", null, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" title="search image" id="file2" name="file2" multiple class="form-control" />
+            </div>
+            <div class="col-md-10">
+                @{
+                        var id = Model.Albumid;
+                        var imgs = db.Galleries.Where(x => x.Albumid == id).ToList();
+                        //Array numb = imgs.ToList();
+                        foreach (var arr in imgs)
+                        {
+                        <img src="~/UploadedFiles/@arr.Images" alt="" style="width:150px;" class="img-responsive" />
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-danger" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-danger" })
+            </div>
+        </div> 
+    </div>
+}
+<div class="preview_box">
+    <img id="preview_img" src="" />
+</div>
+<div id="image-holder"> </div>
+

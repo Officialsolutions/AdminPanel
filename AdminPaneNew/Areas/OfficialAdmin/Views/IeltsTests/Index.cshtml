@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AdminPaneNew.Areas.OfficialAdmin.Models.IeltsTest>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+}
+
+<h2><b>Index</b></h2>
+
+@section Pagename {
+
+    Ielts Test
+}
+<h2><b>Index</b></h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TestType)
+                </th>
+                <th>
+                    PDF File
+                    @*@Html.DisplayNameFor(model => model.Image)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Url)
+                </th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TestType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Image)
+                        @*<img src="~/UploadedFiles/@item.Image" width="100" />*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Url)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Ieltsid }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Ieltsid }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Ieltsid })
+                    </td>
+                </tr>
+            }
+
+    </table>
+    </div>

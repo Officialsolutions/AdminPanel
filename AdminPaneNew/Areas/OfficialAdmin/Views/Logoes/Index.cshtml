@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AdminPaneNew.Areas.OfficialAdmin.Models.Logo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+}
+@section Pagename {
+
+    Logo
+
+}
+<h2><b>Index</b></h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <img src="~/UploadedFiles/@item.Image" width="100" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Logoid }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Logoid }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Logoid })
+                    </td>
+                </tr>
+            }
+
+</table>
+ </div>

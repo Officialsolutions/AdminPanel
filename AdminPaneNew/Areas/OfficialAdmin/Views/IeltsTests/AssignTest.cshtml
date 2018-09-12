@@ -1,0 +1,144 @@
+﻿@using AdminPaneNew.Areas.OfficialAdmin.Models
+@model IEnumerable<AdminPaneNew.Areas.OfficialAdmin.Models.IeltsTest>
+
+@{
+    ViewBag.Title = "AssignTest";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+    dbcontext db = new dbcontext();
+    var cat = db.Categories.ToList();
+    var stu = db.StudentDetails.ToList();
+    AssignTest assign = new AssignTest();
+}
+@section Pagename {
+
+    Assign Ielts Test
+}
+
+@using (Html.BeginForm("AssignTest", "IeltsTests", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4>Assign Test</h4>
+        <hr />
+        <div class="row">
+                    <div class="col-md-6">
+                        <label>Category</label>
+                        <select id="session" name="categoryname" class="form-control">
+                            <option>Select Category</option>
+                            @foreach (var ab in cat)
+                            {
+                                <option value="@ab.Categoryid">@ab.Name</option>
+                            }
+                        </select>
+                        </div>
+            <input type="submit" value="Submit" class="btn btn-danger" style="margin-top:10px" />
+       </div>
+        </div>
+}
+@using (Html.BeginForm("InsertAssignTest", "IeltsTests", FormMethod.Post))
+{
+  @Html.AntiForgeryToken()
+       <div class="col-md-5">
+              <div class="table-responsive">
+                  <h3 style="margin-left:230px;">
+                      Select Test</h3>
+                      <table class="table table-striped table-bordered table-hover" style="margin-top:40px">
+                          <thead>
+                              <tr>
+                                  <td>  Sr No.</td>
+
+                                  <td>Test Name</td>
+
+                              </tr>
+                          </thead>
+                          @foreach (var item in Model)
+                          {
+                              <tr>
+                                  <td>
+
+                                      <input id="Checkbox1" type="checkbox" name="checkbox"  checked="checked" />
+                                      @Html.DisplayFor(modelItem => item.Ieltsid)
+                                  </td>
+                                  <td>
+                                      @Html.DisplayFor(modelItem => item.Name)
+                                  </td>
+                              </tr>
+                          }
+                      </table>
+         </div>
+       </div>
+       <div class="col-md-7">
+              <div class="table-responsive">
+                  <h3 style="margin-left:230px;"> Select Student</h3>
+                  <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                      <thead>
+                          <tr>
+                              <td>  Sr No.</td>
+
+
+                              <td> Roll No.</td>
+
+                              <td> Name</td>
+
+                              <td>Joining Date</td>
+                          </tr>
+                      </thead>
+                      @foreach (var item in stu)
+                      {
+                          <tr>
+                              <td>
+                                  <input id="Checkbox2" type="checkbox" name="checkbox2" value="" checked="checked" />
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.RollNo)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.Name)
+                              </td>
+                              <td>
+                                  @Html.DisplayFor(modelItem => item.JoiningDate)
+                              </td>
+                          </tr>
+                      }
+                  </table>
+              </div>
+          </div>
+
+       <div class="col-md-offset-2 col-md-10">
+           <input type="submit" value="Submit" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+}
+        <script>
+    function checkboxes()
+    {
+        debugger;
+        var check1 = document.getElementById("checkbox");
+        var check2 = document.getElementById("Checkbox2").value;
+        var ieltsids = @Model.ToList();
+        var studentids = document.getElementsByClassName("col-md-7");
+        var count;
+        for (var i = 0; i < ieltsids.length; i++)
+        {
+            if (check1[i].type == "checkbox" && check1[i].checked == true)
+            {
+              
+                for (var n = 0; n < studentids.length; n++)
+                    if(Checkbox2[n].checked==true)
+                    {
+                        count=check1[i].value;
+                    }            }
+            else
+            {
+
+            }
+        }
+    }
+
+
+        </script>
+
+
+
+
+
+

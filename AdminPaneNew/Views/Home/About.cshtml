@@ -1,0 +1,17 @@
+﻿
+    @*<script src = "~/Areas/assets/js/tinymce.min.js" ></script >*@
+
+<script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script type="text/javascript">
+        tinymce.init({ selector: 'textarea', width: '80%'});
+</script>
+
+@{
+
+     ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+<textarea></textarea>
