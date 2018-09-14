@@ -84,7 +84,7 @@
                     <li>
                         <a  href="@Url.Action("Index","Default")"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>    
+                    @*<li>    
                         <a href="@Url.Action("Index","news")"><i class="fa fa-desktop"></i> News</a>
                     </li>
                     <li>
@@ -120,11 +120,22 @@
                     </li>
                     <li>
                         <a href="@Url.Action("Index","IeltsTests")"><i class="fa fa-fw fa-file"></i>Ielts Tests</a>
+                    </li>*@
+                    <li>
+                        <a href="@Url.Action("Index","StudentRegs")"><i class="fa fa-fw fa-file"></i>Register Student</a>
+                    </li>
+                    
+                    <li>
+                        <a href="@Url.Action("Index","fees")"><i class="fa fa-fw fa-file"></i>Fee Report</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-sitemap"></i> Settings<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
+
                             <li>
+                                <a href="@Url.Action("Index","SingleFees")"><i class="fa fa-fw fa-file"></i>Edit Fees</a>
+                            </li>
+                            @*<li>
                                 <a href="@Url.Action("Index","Logoes")">Logo</a>
                             </li>
                             <li>
@@ -135,7 +146,7 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("Index","Contacts")">Contact Us</a>
-                            </li>
+                            </li>*@
                             @*<li>
                                 <a href="#">Second Level Link<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">

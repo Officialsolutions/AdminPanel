@@ -171,6 +171,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                 }
                 else
                 {
+                    Session["user"] = dataItem.Usename;
                     TempData["Success"] = "Login Successfully";
                  
                     return RedirectToAction("Index","Default");

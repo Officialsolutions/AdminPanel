@@ -4,15 +4,18 @@
     ViewBag.Title = "Create";
     Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
 }
+@section Pagename {
 
-<h2>Create</h2>
+    Fees Report
 
-@using (Html.BeginForm()) 
+}
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>fees</h4>
+        <h3>Create</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

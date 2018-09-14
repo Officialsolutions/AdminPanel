@@ -269,7 +269,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
         public int Package { get; set; }
         public int Advance { get; set; }
         public int pay { get; set; }
-
+        public int balance { get; set; }
     }
     public class SingleFee
     {
@@ -277,7 +277,8 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
         public int sfid { get; set; }
         public string studentid { get; set; }
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> Date { get; set; }
         public int Paid { get; set; }
         public int Billno { get; set; }
         public string Receivedby { get; set; }

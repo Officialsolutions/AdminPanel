@@ -4,11 +4,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
 }
+@section Pagename {
 
+    Student Registration
+
+}
 <h2><b>Index</b></h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("Upload Excel", "updateExcel")
 </p>
 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
@@ -28,9 +32,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Contact)
             </th>
-
-
-            <th></th>
+            <th>Action</th>
         </tr>
         </thead>
         @foreach (var item in Model)
@@ -51,8 +53,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Contact)
                 </td>
-
-
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Studentid },new { @class="label label-info"}) |
                    

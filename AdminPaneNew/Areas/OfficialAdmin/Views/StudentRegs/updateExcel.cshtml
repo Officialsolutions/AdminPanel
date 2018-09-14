@@ -4,14 +4,17 @@
     ViewBag.Title = "updateExcel";
     Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
 }
+@section Pagename {
 
-<h2>Update Excel</h2>
+    Student Registration
+
+}
 @using (Html.BeginForm("updateExcel", "StudentRegs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>StudentReg</h4>
+        <h3>Update Excel</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

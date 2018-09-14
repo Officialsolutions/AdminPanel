@@ -17,7 +17,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
     public class StudentRegsController : Controller
     {
         private dbcontext db = new dbcontext();
-
+        public static int regno;
         // GET: OfficialAdmin/StudentRegs
         public ActionResult Index()
         {
@@ -69,7 +69,6 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                         {
                             if (a["Student Name"] != "" && a["Address"] != "" && a["Contact"] != "")
                             {
-                                string rollno = null;
                                 StudentReg TU = new StudentReg();
                                StudentReg studentreg1 = db.StudentRegs.FirstOrDefault();
                                 if (studentreg1 == null)
@@ -103,6 +102,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                                 fee.Package = Convert.ToInt32(a["Package"]);
                                 fee.Advance = Convert.ToInt32(a["Advance"]);
                                 fee.pay = Convert.ToInt32(a["Advance"]);
+                                fee.balance = fee.Package - fee.pay;
                                 db.fees.Add(fee);
                                 db.SaveChanges();
 
@@ -144,7 +144,9 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                     {
                         System.IO.File.Delete(pathToExcelFile);
                     }
+                    // return RedirectToAction("Index");
                     return Json("success", JsonRequestBehavior.AllowGet);
+                    Response.Redirect("Index");
                 }
                 else
                 {
@@ -184,18 +186,19 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // GET: OfficialAdmin/StudentRegs/Create
         public ActionResult Create()
         {
-            StudentReg studentreg1 = db.StudentRegs.First();
-            if (studentreg1 != null)
-            {
-                studentreg1.RollNo = 0001;
-            }
-            else
-            {
-                var ab = db.StudentRegs.Max(x => x.RollNo);
-                studentreg1.RollNo = Convert.ToInt32(ab) + 1;
+            //StudentReg studentreg1 = db.StudentRegs.First();
+            //if (studentreg1 != null)
+            //{
+            //    studentreg1.RollNo = 0001;
+            //}
+            //else
+            //{
+            //    var ab = db.StudentRegs.Max(x => x.RollNo);
+            //    studentreg1.RollNo = Convert.ToInt32(ab) + 1;
 
-            }
-            return View(studentreg1);
+            //}
+            // return View(studentreg1);
+            return View();
         }
 
         // POST: OfficialAdmin/StudentRegs/Create
@@ -203,15 +206,34 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Studentid,StudentName,FatherName,Address,Contact,Laststudy,Medical,Refusal,Email,Password,RollNo")] StudentReg studentReg, Helper Help)
+        public ActionResult Create([Bind(Include = "Studentid,StudentName,FatherName,Address,Contact,Laststudy,Medical,Refusal,Email,Password,RollNo")] StudentReg studentReg, Helper Help,string package, string advance)
         {
             if (ModelState.IsValid)
             {
-                string rollno = null;
-                //string reg = Regno(rollno);
-               // studentReg.RollNo = Help.Regno(rollno);
+                StudentReg studentreg1 = db.StudentRegs.FirstOrDefault();
+                if (studentreg1 == null)
+                {
+                    studentReg.RollNo = 0001;
+                }
+                else
+                {
+                    var ab = db.StudentRegs.Max(x => x.RollNo);
+                    studentReg.RollNo = Convert.ToInt32(ab) + 1;
+
+                }
+                studentReg.Fileno = "Jan/19";
                 db.StudentRegs.Add(studentReg);
                 db.SaveChanges();
+
+                fees fee = new fees();
+                fee.studentid = studentReg.Fileno + "" + studentReg.RollNo;
+                fee.Package = Convert.ToInt32(package);
+                fee.Advance = Convert.ToInt32(advance);
+                fee.pay = Convert.ToInt32(advance);
+                fee.balance = fee.Package - fee.pay;
+                db.fees.Add(fee);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -226,6 +248,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             StudentReg studentReg = db.StudentRegs.Find(id);
+            regno = studentReg.RollNo;
             if (studentReg == null)
             {
                 return HttpNotFound();
@@ -238,10 +261,12 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Studentid,StudentName,FatherName,Address,Contact,Laststudy,Medical,Refusal,Email,Password,RollNo")] StudentReg studentReg)
+        public ActionResult Edit([Bind(Include = "Studentid,StudentName,FatherName,Address,Contact,Laststudy,Medical,Refusal,Email,Password")] StudentReg studentReg)
         {
             if (ModelState.IsValid)
             {
+                studentReg.RollNo = regno;
+                studentReg.Fileno = "Jan/19";
                 db.Entry(studentReg).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

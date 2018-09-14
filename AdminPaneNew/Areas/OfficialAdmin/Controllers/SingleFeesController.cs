@@ -14,10 +14,16 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
     public class SingleFeesController : Controller
     {
         private dbcontext db = new dbcontext();
+        public static string regno;
+        public static int lastfee;
 
         // GET: OfficialAdmin/SingleFees
         public async Task<ActionResult> Index()
         {
+            if(Session["user"]==null)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             return View(await db.SingleFees.ToListAsync());
         }
 
@@ -42,6 +48,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
             StudentReg stu = db.StudentRegs.Find(id);
             TempData["stuid"] = stu.Fileno + "" + stu.RollNo;
             TempData["id"] = stu.Studentid;
+            regno= TempData["stuid"].ToString();
             var single = db.SingleFees.FirstOrDefault();
             if (single == null)
             {
@@ -66,10 +73,13 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
+                singleFee.studentid = regno;
+                singleFee.Receivedby = Session["user"].ToString();
                 db.SingleFees.Add(singleFee);
                 await db.SaveChangesAsync();
                 fee = db.fees.Where(x => x.studentid == singleFee.studentid).FirstOrDefault();
                 fee.pay = fee.pay + singleFee.Paid;
+                fee.balance = fee.Package - fee.pay;
                 db.Entry(fee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,6 +89,8 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         }
 
         // GET: OfficialAdmin/SingleFees/Edit/5
+        //[Authorize(Roles ="Admin")]
+        
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +98,8 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SingleFee singleFee = await db.SingleFees.FindAsync(id);
+            regno = singleFee.studentid;
+            lastfee = singleFee.Paid;
             if (singleFee == null)
             {
                 return HttpNotFound();
@@ -98,18 +112,33 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "sfid,studentid,Date,Paid,Billno,Receivedby")] SingleFee singleFee)
+        public async Task<ActionResult> Edit([Bind(Include = "sfid,studentid,Date,Paid,Billno,Receivedby")] SingleFee singleFee,fees fee)
         {
             if (ModelState.IsValid)
             {
+               if(singleFee.Paid ==lastfee)
+                {
+
+                }
+               else
+                {
+                    singleFee.studentid = regno;
+                    fee = db.fees.Where(x => x.studentid == singleFee.studentid).FirstOrDefault();
+                    fee.pay = fee.pay - lastfee;
+                    fee.pay = fee.pay + singleFee.Paid;
+                    fee.balance = fee.Package - fee.pay;
+                    db.Entry(fee).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                singleFee.Receivedby = Session["user"].ToString();
                 db.Entry(singleFee).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(singleFee);
         }
-
         // GET: OfficialAdmin/SingleFees/Delete/5
+        //[Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -117,6 +146,8 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SingleFee singleFee = await db.SingleFees.FindAsync(id);
+            regno = singleFee.studentid;
+            lastfee = singleFee.Paid;
             if (singleFee == null)
             {
                 return HttpNotFound();
@@ -127,11 +158,21 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // POST: OfficialAdmin/SingleFees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id, fees fee)
         {
+        
             SingleFee singleFee = await db.SingleFees.FindAsync(id);
+            singleFee.studentid = regno;
             db.SingleFees.Remove(singleFee);
             await db.SaveChangesAsync();
+            
+            fee = db.fees.Where(x => x.studentid == singleFee.studentid).FirstOrDefault();
+            fee.pay = fee.pay - lastfee;
+          //  fee.pay = fee.pay + singleFee.Paid;
+            fee.balance = fee.Package - fee.pay;
+            db.Entry(fee).State = EntityState.Modified;
+            db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
