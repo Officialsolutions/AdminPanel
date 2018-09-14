@@ -10,79 +10,56 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FatherName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Contact)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Laststudy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Medical)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Refusal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RollNo)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fileno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FatherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact)
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FatherName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contact)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Laststudy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Medical)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Refusal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RollNo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Studentid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Studentid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Studentid })
-        </td>
-    </tr>
-}
+
+            <th></th>
+        </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Fileno@item.RollNo
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FatherName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Studentid },new { @class="label label-info"}) |
+                   
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Studentid }, new { @class = "label label-danger" })
+                    @Html.ActionLink("Invoice", "Invoice", new { id = item.Studentid }, new { @class = "label label-danger" })
+                </td>
+            </tr>
+        }
 
 </table>

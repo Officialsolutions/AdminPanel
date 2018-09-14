@@ -1,0 +1,65 @@
+﻿@model AdminPaneNew.Areas.OfficialAdmin.Models.SingleFee
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SingleFee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.studentid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.studentid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Billno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Billno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Receivedby)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Receivedby)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

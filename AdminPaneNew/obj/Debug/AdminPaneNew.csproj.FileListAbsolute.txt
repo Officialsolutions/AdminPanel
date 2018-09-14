@@ -254,3 +254,4 @@ C:\Github\AdminPanel\AdminPaneNew\obj\Debug\AdminPaneNew.Migrations.InitialCreat
 C:\Github\AdminPanel\AdminPaneNew\obj\Debug\AdminPaneNew.csproj.GenerateResource.Cache
 C:\Github\AdminPanel\AdminPaneNew\obj\Debug\AdminPaneNew.dll
 C:\Github\AdminPanel\AdminPaneNew\obj\Debug\AdminPaneNew.pdb
+C:\Github\AdminPanel\AdminPaneNew\obj\Debug\AdminPaneNew.csprojResolveAssemblyReference.cache

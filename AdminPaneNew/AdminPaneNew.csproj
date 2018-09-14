@@ -215,6 +215,7 @@
     <Compile Include="Areas\OfficialAdmin\Controllers\LogoesController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\newsController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\ServicesController.cs" />
+    <Compile Include="Areas\OfficialAdmin\Controllers\SingleFeesController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\slidersController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\StudentDetailsController.cs" />
     <Compile Include="Areas\OfficialAdmin\Controllers\StudentRegsController.cs" />
@@ -497,6 +498,11 @@
     <Content Include="Areas\OfficialAdmin\Views\fees\Details.cshtml" />
     <Content Include="Areas\OfficialAdmin\Views\fees\Edit.cshtml" />
     <Content Include="Areas\OfficialAdmin\Views\fees\Index.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\SingleFees\Create.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\SingleFees\Delete.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\SingleFees\Details.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\SingleFees\Edit.cshtml" />
+    <Content Include="Areas\OfficialAdmin\Views\SingleFees\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
