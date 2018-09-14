@@ -49,6 +49,8 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
         public System.Data.Entity.DbSet<AdminPaneNew.Areas.OfficialAdmin.Models.StudentReg> StudentRegs { get; set; }
 
         public System.Data.Entity.DbSet<AdminPaneNew.Areas.OfficialAdmin.Models.fees> fees { get; set; }
+
+        public System.Data.Entity.DbSet<AdminPaneNew.Areas.OfficialAdmin.Models.SingleFee> SingleFees { get; set; }
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<StudentReg>().MapToStoredProcedures();

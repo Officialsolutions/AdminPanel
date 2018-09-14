@@ -271,4 +271,16 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
         public int pay { get; set; }
 
     }
+    public class SingleFee
+    {
+        [Key]
+        public int sfid { get; set; }
+        public string studentid { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
+        public int Paid { get; set; }
+        public int Billno { get; set; }
+        public string Receivedby { get; set; }
+
+    }
 }

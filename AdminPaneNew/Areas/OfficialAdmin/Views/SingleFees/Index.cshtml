@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AdminPaneNew.Areas.OfficialAdmin.Models.SingleFee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.studentid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Billno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Receivedby)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.studentid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Billno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Receivedby)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.sfid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.sfid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.sfid })
+        </td>
+    </tr>
+}
+
+</table>

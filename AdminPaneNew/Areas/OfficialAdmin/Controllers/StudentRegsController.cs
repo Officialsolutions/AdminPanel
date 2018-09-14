@@ -283,5 +283,9 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult Invoice(int id)
+        {
+           return RedirectToAction("Create","SingleFees",new { id=id});
+        }
     }
 }

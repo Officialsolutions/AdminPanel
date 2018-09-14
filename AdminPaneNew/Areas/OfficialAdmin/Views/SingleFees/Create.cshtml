@@ -1,0 +1,123 @@
+﻿@model AdminPaneNew.Areas.OfficialAdmin.Models.SingleFee
+@using AdminPaneNew.Areas.OfficialAdmin.Models
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/OfficialAdmin/Views/Shared/Layout.cshtml";
+    dbcontext db = new dbcontext();
+    var id = TempData["stuid"].ToString();
+    int stu =Convert.ToInt32(TempData["id"]);
+    StudentReg ss = db.StudentRegs.Where(x=>x.Studentid==stu).FirstOrDefault();
+    fees fee = new fees();
+    fee = db.fees.Where(x => x.studentid == id).FirstOrDefault();
+}
+
+<h2>Create</h2>
+<div class="col-md-8">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>SingleFee</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Billno, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Billno, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Billno, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.studentid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.studentid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.studentid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Paid, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Paid, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Paid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+</div>
+<div class="col-md-4">
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                @ss.StudentName
+            </td>
+        </tr>
+        <tr>
+            <td>
+                FatherName
+            </td>
+            <td>
+                @ss.FatherName
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address
+            </td>
+            <td>
+                @ss.Address
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Package
+            </td>
+            <td>
+                @fee.Package
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Advance
+            </td>
+            <td>
+                @fee.Advance
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Paid
+            </td>
+            <td>
+                @fee.pay
+            </td>
+        </tr>
+    </table>
+</div>
