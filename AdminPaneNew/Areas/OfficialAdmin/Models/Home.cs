@@ -277,7 +277,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Models
         public int sfid { get; set; }
         public string studentid { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Date { get; set; }
         public int Paid { get; set; }
         public int Billno { get; set; }

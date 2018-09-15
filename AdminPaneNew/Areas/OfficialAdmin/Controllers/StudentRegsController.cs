@@ -146,7 +146,8 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                     }
                     // return RedirectToAction("Index");
                     return Json("success", JsonRequestBehavior.AllowGet);
-                    Response.Redirect("Index");
+                  //  return RedirectToAction("Index");
+                    // Response.Redirect("Index");
                 }
                 else
                 {
@@ -311,6 +312,10 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         public ActionResult Invoice(int id)
         {
            return RedirectToAction("Create","SingleFees",new { id=id});
+        }
+        public ActionResult FeeDetail(string roll)
+        {
+            return RedirectToAction("Index", "SingleFees", new { roll = roll });
         }
     }
 }

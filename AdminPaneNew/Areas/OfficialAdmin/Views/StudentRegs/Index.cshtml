@@ -57,7 +57,9 @@
                     @Html.ActionLink("Edit", "Edit", new { id = item.Studentid },new { @class="label label-info"}) |
                    
                     @Html.ActionLink("Delete", "Delete", new { id = item.Studentid }, new { @class = "label label-danger" })
-                    @Html.ActionLink("Invoice", "Invoice", new { id = item.Studentid }, new { @class = "label label-danger" })
+                    @Html.ActionLink("Invoice", "Invoice", new { id = item.Studentid }, new { @class = "label  label-info" })
+
+                    @Html.ActionLink("FeeDetail", "FeeDetail", new { roll = (item.Fileno)+(item.RollNo) }, new { @class = "label  label-info" })
                 </td>
             </tr>
         }

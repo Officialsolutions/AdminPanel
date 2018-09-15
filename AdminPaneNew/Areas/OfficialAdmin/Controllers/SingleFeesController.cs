@@ -18,14 +18,23 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         public static int lastfee;
 
         // GET: OfficialAdmin/SingleFees
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string roll)
         {
-            if(Session["user"]==null)
-            {
-                return RedirectToAction("Login", "Accounts");
-            }
-            return View(await db.SingleFees.ToListAsync());
+            List<SingleFee> singlefee = db.SingleFees.Where(x => x.studentid == roll).ToList();
+            return View(singlefee);
         }
+        //public async Task<ActionResult> Index(string roll)
+        //{
+        //    //if (Session["user"] == null)
+        //    //{
+        //    //    return RedirectToAction("Login", "Accounts");
+        //    //}
+        //    //else
+        //    //{
+        //        List<SingleFee> singlefee = db.SingleFees.Where(x => x.studentid == roll).ToList();
+        //        return View(singlefee);
+        //    //}
+        //}
 
         // GET: OfficialAdmin/SingleFees/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -43,12 +52,12 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         }
 
         // GET: OfficialAdmin/SingleFees/Create
-        public ActionResult Create(int id,SingleFee single2)
+        public ActionResult Create(int id, SingleFee single2)
         {
             StudentReg stu = db.StudentRegs.Find(id);
             TempData["stuid"] = stu.Fileno + "" + stu.RollNo;
             TempData["id"] = stu.Studentid;
-            regno= TempData["stuid"].ToString();
+            regno = TempData["stuid"].ToString();
             var single = db.SingleFees.FirstOrDefault();
             if (single == null)
             {
@@ -56,11 +65,10 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
             }
             else
             {
-                var single3 = db.SingleFees.Max(x=>x.Billno);
+                var single3 = db.SingleFees.Max(x => x.Billno);
                 single2.Billno = single3 + 1;
-
             }
-          //  single2.studentid = TempData["stuid"].ToString();
+            //  single2.studentid = TempData["stuid"].ToString();
             return View(single2);
         }
 
@@ -69,7 +77,7 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "sfid,studentid,Date,Paid,Billno,Receivedby")] SingleFee singleFee,fees fee)
+        public async Task<ActionResult> Create([Bind(Include = "sfid,studentid,Date,Paid,Billno,Receivedby")] SingleFee singleFee, fees fee)
         {
             if (ModelState.IsValid)
             {
@@ -84,13 +92,13 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(singleFee);
+           // return View(singleFee);
+            return RedirectToAction("Index", "StudentRegs");
         }
 
         // GET: OfficialAdmin/SingleFees/Edit/5
         //[Authorize(Roles ="Admin")]
-        
+
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -112,17 +120,17 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "sfid,studentid,Date,Paid,Billno,Receivedby")] SingleFee singleFee,fees fee)
+        public async Task<ActionResult> Edit([Bind(Include = "sfid,studentid,Date,Paid,Billno,Receivedby")] SingleFee singleFee, fees fee)
         {
             if (ModelState.IsValid)
             {
-               if(singleFee.Paid ==lastfee)
+                singleFee.studentid = regno;
+                if (singleFee.Paid == lastfee)
                 {
 
                 }
-               else
+                else
                 {
-                    singleFee.studentid = regno;
                     fee = db.fees.Where(x => x.studentid == singleFee.studentid).FirstOrDefault();
                     fee.pay = fee.pay - lastfee;
                     fee.pay = fee.pay + singleFee.Paid;
@@ -135,7 +143,8 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(singleFee);
+           // return View(singleFee);
+            return RedirectToAction("Index", "StudentRegs");
         }
         // GET: OfficialAdmin/SingleFees/Delete/5
         //[Authorize(Roles = "Admin")]
@@ -160,15 +169,15 @@ namespace AdminPaneNew.Areas.OfficialAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id, fees fee)
         {
-        
+
             SingleFee singleFee = await db.SingleFees.FindAsync(id);
             singleFee.studentid = regno;
             db.SingleFees.Remove(singleFee);
             await db.SaveChangesAsync();
-            
+
             fee = db.fees.Where(x => x.studentid == singleFee.studentid).FirstOrDefault();
             fee.pay = fee.pay - lastfee;
-          //  fee.pay = fee.pay + singleFee.Paid;
+            //  fee.pay = fee.pay + singleFee.Paid;
             fee.balance = fee.Package - fee.pay;
             db.Entry(fee).State = EntityState.Modified;
             db.SaveChanges();
